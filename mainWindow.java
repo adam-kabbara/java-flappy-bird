@@ -57,13 +57,13 @@ class mainWindow extends JComponent implements KeyListener{
         g.setColor(Color.BLACK);
         g.fillRect(0, 0, WIDTH, HEIGHT);
         g.drawImage(this.bg, 0, 0, this);
-        bird.paintComponent(g);
+        this.bird.paintComponent(g);
 
-        for (Pipe p : pipes){
+        for (Pipe p : this.pipes){
             p.paintComponent(g);
         }
         
-        base.paintComponent(g);
+        this.base.paintComponent(g);
         drawScore(g);
     }
 
@@ -72,32 +72,31 @@ class mainWindow extends JComponent implements KeyListener{
         g.setFont(new Font("Arial", Font.PLAIN, 20));
         g.drawString("score: "+score, 0, 15);
         g.drawString("highscore: "+highscore, 0, 30);
-
     }
 
     public void start() {
-        base = new Base(550, 5);
-        bird = new Bird(WIDTH/2, HEIGHT/2, 15); //error is thrown as the bird takes time to load img
-        pipes.add(new Pipe(450));
+        this.base = new Base(550, 5);
+        this.bird = new Bird(WIDTH/2, HEIGHT/2, 15); //error is thrown as the bird takes time to load img
+        this.pipes.add(new Pipe(450));
         System.out.println(score);
         System.out.println(highscore);
         beforeStart();
 
         while (true) {
-            bird.fall();
-            base.move();
+            this.bird.fall();
+            this.base.move();
 
             if (pressedKeyCode == KeyEvent.VK_SPACE){
-                bird.jump();
+                this.bird.jump();
                 pressedKeyCode = -1;
             }
 
-            for (int i=0; i<pipes.size(); i++){
-                Pipe p = pipes.get(i);
+            for (int i=0; i<this.pipes.size(); i++){
+                Pipe p = this.pipes.get(i);
 
                 p.move();
-                if (p.x < bird.x && ! p.passed){
-                    pipes.add(new Pipe(450));
+                if (p.x < this.bird.x && ! p.passed){
+                    this.pipes.add(new Pipe(450));
                     p.passed = true;
                     score++;
                     if(score > highscore){
@@ -105,12 +104,12 @@ class mainWindow extends JComponent implements KeyListener{
                     }
                 }
                 else if(p.x + p.width < 0){
-                    pipes.remove(p);
+                    this.pipes.remove(p);
                 }
             }
             
             if (checkCollision()){
-                System.out.println(bird.y);
+                System.out.println(this.bird.y);
                 repaint();
                 showLostPopup();
                 break;
@@ -141,21 +140,26 @@ class mainWindow extends JComponent implements KeyListener{
 
     private boolean checkCollision(){
         Pipe p;
-        if (bird.y + bird.rotatedImage.getHeight() > base.y){
+        if (this.bird.y + this.bird.rotatedImage.getHeight() > this.base.y){ // ground collision
             return true;
-        }    
-        for (int i=0; i<pipes.size(); i++){
-            p = pipes.get(i);
-            if (bird.x + bird.rotatedImage.getWidth() > p.x && p.x + p.width > bird.x){
-                if (bird.y + bird.rotatedImage.getHeight() > p.bottomY){
-                    return true; //bottom pip collision
-                }
-                else if(p.topY + p.topHeight -40> bird.y){
-                    return true; //top pip collision
+        }
+        else if(this.bird.y < 0){ //sky collision
+            return true;
+        }
+        else{
+            for (int i=0; i<this.pipes.size(); i++){
+                p = this.pipes.get(i);
+                if (this.bird.x + this.bird.rotatedImage.getWidth() > p.x && p.x + p.width > bird.x){
+                    if (this.bird.y + this.bird.rotatedImage.getHeight() > p.bottomY){
+                        return true; //bottom pip collision
+                    }
+                    else if(p.topY + p.topHeight -40> this.bird.y){
+                        return true; //top pip collision
+                    }
                 }
             }
+            return false;
         }
-        return false;
     }
 
     private void saveHighscore(){
