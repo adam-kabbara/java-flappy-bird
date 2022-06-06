@@ -1,5 +1,4 @@
 import java.awt.*;
-import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import javax.swing.*;
 
@@ -23,7 +22,7 @@ public class Bird extends JComponent{
         this.rotation = 0;
         this.jumpPos = this.y;
         this.isJumping = false;
-        this.image = utils.loadImage("sprites\\yellowbird.png");
+        this.image = utils.loadImage("assets\\yellowbird.png");
         
     }
 

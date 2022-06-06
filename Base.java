@@ -1,4 +1,3 @@
-import javax.imageio.ImageIO;
 import javax.swing.JComponent;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -18,7 +17,7 @@ public class Base extends JComponent{
         this.vel = 5;
         x1 = 0;
 
-        this.image = utils.loadImage("sprites\\base.png");
+        this.image = utils.loadImage("assets\\base.png");
         this.image = utils.scaleImage(this.image, 1.4, 1);
 
         this.width = this.image.getWidth();

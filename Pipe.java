@@ -1,11 +1,7 @@
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.util.Random;
-import java.awt.geom.AffineTransform;
-import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
-import java.io.File;
 
 
 
@@ -28,7 +24,7 @@ public class Pipe extends JComponent{
         this.topHeight = 600;
         this.bottomHeight = 600;
         this.passed = false;
-        this.bottomPipe = utils.loadImage("sprites\\pipe.png");
+        this.bottomPipe = utils.loadImage("assets\\pipe.png");
         this.bottomPipe = utils.scaleImage(this.bottomPipe, 1, 1.75);
         this.topPipe = utils.rotateImage(this.bottomPipe, 180);
         this.width = this.topPipe.getWidth();
@@ -48,7 +44,7 @@ public class Pipe extends JComponent{
     }
 
     private void setHeight(){
-        int gap = 70;
+        int gap = 100;
         int height = rand.nextInt(350) + 50;
         this.topY = height - this.topHeight;
         this.bottomY = gap + height;

@@ -34,7 +34,7 @@ class mainWindow extends JComponent implements KeyListener{
                                    // tab (minimize; full screen; close)
         
         highscore = readHighscore();
-        this.bg = utils.loadImage("sprites\\bg.png");
+        this.bg = utils.loadImage("assets\\bg.png");
         this.bg = utils.scaleImage(this.bg, 1.3, 1.25);
     }
 
@@ -43,7 +43,7 @@ class mainWindow extends JComponent implements KeyListener{
         frame.add(gameWindow);         
         frame.pack(); // set frame size to content pane
 
-        frame.setTitle("Snake Game");
+        frame.setTitle("Flappy Bird");
         //frame.setResizable(false); todo
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
